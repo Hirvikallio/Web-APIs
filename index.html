@@ -1,1 +1,37 @@
-c
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consulta de API - OMDb</title>
+    <link rel="stylesheet" href="geral.css">
+</head>
+<body>
+    <h1>Fox Gallery</h1>
+
+    <!-- Search Form -->
+    <form id="apiForm">
+        <label for="nameInput">Nome:</label>
+        <input type="text" id="nameInput" name="nameInput" placeholder="Digite o nome">
+        <button type="button" onclick="searchFoxes()">Buscar Raposas</button>
+    </form>
+
+    <!-- Filter Options -->
+    <div id="filterOptions">
+        <label for="categoryFilter">Categoria:</label>
+        <select id="categoryFilter" name="categoryFilter">
+            <option value="">Todas as Categorias</option>
+            <option value="red">Vermelha</option>
+            <option value="silver">Prateada</option>
+            <!-- Add more categories as needed -->
+        </select>
+    </div>
+
+    <!-- Results Container -->
+    <div id="apiResults"></div>
+
+
+
+    <script src="geral.js"></script>
+</body>
+</html>
