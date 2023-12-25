@@ -3,25 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Consulta de API - OMDb</title>
+    <title>D&D Explorer</title>
     <link rel="stylesheet" href="geral.css">
 </head>
 <body>
     
-    <h1>D&D 5e API Explorer</h1>
+    <h1>D&D Explorer</h1>
 
-    <!-- Formulário de Pesquisa -->
-    <form id="searchForm">
-        <label for="categoryFilter">Escolha uma categoria:</label>
-        <select id="categoryFilter">
-            <option value="classes">Classes</option>
-            <option value="spells">Spells</option>
-            <option value="equipment">Equipment</option>
-            <option value="monsters">Monsters</option>
-            <option value="backgrounds">Backgrounds</option>
-        </select>
+<!-- Formulário de Pesquisa -->
+<form id="searchForm">
+    <label for="searchInput">Pesquisa específica:</label>
+    <input type="text" id="searchInput" name="searchInput" placeholder="Digite um termo...">
+    <!-- Botão de Pesquisar -->
+    <button type="submit" id="searchButton">Pesquisar</button>
+</form>
 
-       <!-- Dropdown para a ordem de classificação -->
+<!-- Formulário de Categorias e Ordenação -->
+<form id="categoryForm">
+    <label for="categoryFilter">Escolha uma categoria:</label>
+    <select id="categoryFilter">
+        <option value="classes">Classes</option>
+        <option value="spells">Spells</option>
+        <option value="equipment">Equipment</option>
+        <option value="monsters">Monsters</option>
+        <option value="backgrounds">Backgrounds</option>
+        <option value="items">Items</option>
+        <option value="conditions">Conditions</option>
+        <!-- Adicione mais opções conforme necessário -->
+    </select>
+
+    <!-- Dropdown para a ordem de classificação -->
     <label for="sortOrder">Ordenar por:</label>
     <select id="sortOrder">
         <option value="alphabetical_asc">Ordem Alfabética Ascendente</option>
@@ -29,8 +40,10 @@
         <!-- Adicione mais opções conforme necessário -->
     </select>
 
-        <button type="submit">Pesquisar</button>
-    </form>
+    <!-- Botões de Categorias e Ordenação -->
+    <button type="submit" id="categoryButton">Aplicar Filtros</button>
+</form>
+
 
     <!-- Resultados da API -->
     <div id="results">

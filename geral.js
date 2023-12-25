@@ -1,52 +1,84 @@
 document.addEventListener("DOMContentLoaded", function () {
-    // Manipulação de eventos do formulário
+    // Manipulação de eventos do formulário de Pesquisa
     document.getElementById("searchForm").addEventListener("submit", function (event) {
         event.preventDefault();
 
-        // Obtenha o valor selecionado do filtro de categoria
+        const searchTerm = document.getElementById("searchInput").value;
+        // Chame a função de pesquisa com searchTerm
+        performSearch(searchTerm);
+    });
+
+    // Manipulação de eventos do formulário de Categorias e Ordenação
+    document.getElementById("categoryForm").addEventListener("submit", function (event) {
+        event.preventDefault();
+
         const selectedCategory = document.getElementById("categoryFilter").value;
         const sortOrder = document.getElementById("sortOrder").value;
-
-        // Mapeamento de categorias para os endpoints da API D&D 5e
-        const categoryEndpoints = {
-            classes: "https://www.dnd5eapi.co/api/classes",
-            spells: "https://www.dnd5eapi.co/api/spells",
-            equipment: "https://www.dnd5eapi.co/api/equipment",
-            monsters: "https://www.dnd5eapi.co/api/monsters",
-            backgrounds: "https://www.dnd5eapi.co/api/backgrounds"
-        };
-
-        // Exemplo básico de como usar fetch para obter dados da API D&D 5e
-        fetch(categoryEndpoints[selectedCategory])
-            .then(response => response.json())
-            .then(data => {
-                // Atualize a seção de resultados com os dados recebidos da API
-                const resultsContainer = document.getElementById("results");
-                resultsContainer.innerHTML = "";
-
-                if (data.results && data.results.length > 0) {
-                    // Ordenar os resultados com base na opção de ordenação escolhida
-                    let sortedResults;
-                    if (sortOrder === "alphabetical_asc") {
-                        sortedResults = data.results.sort((a, b) => a.name.localeCompare(b.name));
-                    } else if (sortOrder === "alphabetical_desc") {
-                        sortedResults = data.results.sort((a, b) => b.name.localeCompare(a.name));
-                    }
-                    // Adicione mais lógica para outras opções de ordenação, se necessário
-                    // ...
-
-                    sortedResults.forEach(item => {
-                        const itemElement = document.createElement("div");
-                        itemElement.innerHTML = `<h3>${item.name}</h3>`;
-                        resultsContainer.appendChild(itemElement);
-                    });
-                } else {
-                    resultsContainer.innerHTML = "<p>Nenhum resultado encontrado.</p>";
-                }
-            })
-            .catch(error => console.error('Erro ao chamar a API D&D 5e:', error));
+        // Chame a função de aplicar filtros com selectedCategory e sortOrder
+        applyFilters(selectedCategory, sortOrder);
     });
 
     // Adicione manipuladores de eventos para filtragem e ordenação aqui
 });
-v
+
+function performSearch(searchTerm) {
+    // Lógica para realizar a pesquisa e exibir resultados
+    const apiUrl = "https://www.dnd5eapi.co/api/spells";
+    
+    fetch(apiUrl)
+        .then(response => response.json())
+        .then(data => {
+            // Filtra os resultados com base no termo de pesquisa
+            const filteredResults = data.results.filter(spell => spell.name.toLowerCase().includes(searchTerm.toLowerCase()));
+
+            // Atualize a seção de resultados com os dados filtrados da API
+            const resultsContainer = document.getElementById("results");
+            resultsContainer.innerHTML = "";
+
+            if (filteredResults.length > 0) {
+                filteredResults.forEach(spell => {
+                    const spellElement = document.createElement("div");
+                    spellElement.classList.add("card");
+                    spellElement.innerHTML = `<h3>${spell.name}</h3>`;
+                    resultsContainer.appendChild(spellElement);
+                });
+            } else {
+                resultsContainer.innerHTML = "<p>Nenhum resultado encontrado.</p>";
+            }
+        })
+        .catch(error => console.error('Erro ao chamar a API D&D 5e:', error));
+}
+
+function applyFilters(selectedCategory, sortOrder) {
+    // Lógica para aplicar filtros e exibir resultados
+    const apiUrl = `https://www.dnd5eapi.co/api/${selectedCategory}`;
+
+    fetch(apiUrl)
+        .then(response => response.json())
+        .then(data => {
+            // Ordena os resultados com base na opção de ordenação escolhida
+            let sortedResults;
+
+            if (sortOrder === "alphabetical_asc") {
+                sortedResults = data.results.sort((a, b) => a.name.localeCompare(b.name));
+            } else if (sortOrder === "alphabetical_desc") {
+                sortedResults = data.results.sort((a, b) => b.name.localeCompare(a.name));
+            }
+
+            // Atualize a seção de resultados com os dados ordenados da API
+            const resultsContainer = document.getElementById("results");
+            resultsContainer.innerHTML = "";
+
+            if (sortedResults && sortedResults.length > 0) {
+                sortedResults.forEach(item => {
+                    const itemElement = document.createElement("div");
+                    itemElement.classList.add("card");
+                    itemElement.innerHTML = `<h3>${item.name}</h3>`;
+                    resultsContainer.appendChild(itemElement);
+                });
+            } else {
+                resultsContainer.innerHTML = "<p>Nenhum resultado encontrado.</p>";
+            }
+        })
+        .catch(error => console.error('Erro ao chamar a API D&D 5e:', error));
+}
