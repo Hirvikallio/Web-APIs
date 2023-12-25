@@ -1,45 +1,59 @@
+/* Estilo básico para o corpo da página */
 body {
     font-family: Arial, sans-serif;
-    text-align: center;
-    margin: 20px;
+    margin: 0;
+    padding: 0;
 }
 
+/* Estilo para o cabeçalho */
 h1 {
-    color: #333;
+    text-align: center;
+    background-color: #f0f0f0;
+    padding: 20px;
+    margin: 0;
 }
 
+/* Estilo para o formulário e filtros */
 form {
+    text-align: center;
     margin: 20px 0;
 }
 
-label {
-    margin-right: 10px;
+label, select, button {
+    margin: 5px;
 }
 
-#filterOptions {
-    margin-bottom: 20px;
+/* Estilo para os resultados da API */
+#results {
+    text-align: center;
+    margin-top: 20px;
 }
 
-#apiResults {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-}
-
-.result-item {
+/* Estilo para os itens dos resultados */
+#results div {
     margin: 10px;
+    padding: 10px;
     border: 1px solid #ddd;
     border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.result-item img {
-    max-width: 100%;
-    height: auto;
-    border-bottom: 1px solid #ddd;
+/* Estilo para os itens dos resultados */
+#results h3 {
+    margin: 0;
+    color: #333;
 }
 
-.result-item:hover {
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+/* Estilo para a mensagem de nenhum resultado */
+#results p {
+    margin: 10px 0;
+    font-style: italic;
+    color: #888;
+}
+
+/* Estilo para o dropdown de ordenação */
+#sortOrder {
+    margin: 5px;
+    padding: 8px;
+    border-radius: 4px;
 }

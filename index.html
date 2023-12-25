@@ -7,29 +7,35 @@
     <link rel="stylesheet" href="geral.css">
 </head>
 <body>
-    <h1>Fox Gallery</h1>
+    
+    <h1>D&D 5e API Explorer</h1>
 
-    <!-- Search Form -->
-    <form id="apiForm">
-        <label for="nameInput">Nome:</label>
-        <input type="text" id="nameInput" name="nameInput" placeholder="Digite o nome">
-        <button type="button" onclick="searchFoxes()">Buscar Raposas</button>
+    <!-- Formulário de Pesquisa -->
+    <form id="searchForm">
+        <label for="categoryFilter">Escolha uma categoria:</label>
+        <select id="categoryFilter">
+            <option value="classes">Classes</option>
+            <option value="spells">Spells</option>
+            <option value="equipment">Equipment</option>
+            <option value="monsters">Monsters</option>
+            <option value="backgrounds">Backgrounds</option>
+        </select>
+
+       <!-- Dropdown para a ordem de classificação -->
+    <label for="sortOrder">Ordenar por:</label>
+    <select id="sortOrder">
+        <option value="alphabetical_asc">Ordem Alfabética Ascendente</option>
+        <option value="alphabetical_desc">Ordem Alfabética Descendente</option>
+        <!-- Adicione mais opções conforme necessário -->
+    </select>
+
+        <button type="submit">Pesquisar</button>
     </form>
 
-    <!-- Filter Options -->
-    <div id="filterOptions">
-        <label for="categoryFilter">Categoria:</label>
-        <select id="categoryFilter" name="categoryFilter">
-            <option value="">Todas as Categorias</option>
-            <option value="red">Vermelha</option>
-            <option value="silver">Prateada</option>
-            <!-- Add more categories as needed -->
-        </select>
+    <!-- Resultados da API -->
+    <div id="results">
+        <!-- Os resultados da API serão exibidos aqui -->
     </div>
-
-    <!-- Results Container -->
-    <div id="apiResults"></div>
-
 
 
     <script src="geral.js"></script>
