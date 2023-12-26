@@ -1,59 +1,78 @@
-/* Estilo básico para o corpo da página */
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Arial', sans-serif;
     margin: 0;
     padding: 0;
+    display: grid;
+    grid-template-rows: auto 1fr;
+    min-height: 100vh;
+    background-color: #333;
+    color: #fff;
 }
 
-/* Estilo para o cabeçalho */
 h1 {
     text-align: center;
-    background-color: #f0f0f0;
     padding: 20px;
+    background-color: #d9534f;
+    color: #fff;
     margin: 0;
 }
 
-/* Estilo para o formulário e filtros */
-form {
-    text-align: center;
-    margin: 20px 0;
+form, #searchForm {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 10px;
+    margin: 20px;
+    justify-items: end;
 }
 
-label, select, button {
-    margin: 5px;
+#searchForm {
+    max-height: 50px;
+    overflow: hidden;
 }
 
-/* Estilo para os resultados da API */
-#results {
-    text-align: center;
-    margin-top: 20px;
+label {
+    margin-bottom: 5px;
+    color: #d9534f;
 }
 
-/* Estilo para os itens dos resultados */
-#results div {
-    margin: 10px;
+input, select {
     padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
+    width: 100%;
+    border: 1px solid #d9534f;
+    border-radius: 5px;
 }
 
-/* Estilo para os itens dos resultados */
-#results h3 {
-    margin: 0;
-    color: #333;
-}
-
-/* Estilo para a mensagem de nenhum resultado */
-#results p {
-    margin: 10px 0;
-    font-style: italic;
-    color: #888;
-}
-
-/* Estilo para o dropdown de ordenação */
-#sortOrder {
-    margin: 5px;
+button {
     padding: 8px;
-    border-radius: 4px;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+button:hover {
+    background-color: #555;
+}
+
+#results {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    padding: 20px;
+}
+
+#results > div {
+    margin-bottom: 20px;
+    background-color: #5bc0de; /* Blue background color for result items */
+    padding: 15px;
+    border-radius: 5px;
+    border: 1px solid #31708f; /* Darker blue border color */
+    color: #fff;
+}
+
+/* Additional styling for results */
+#results > div:hover {
+    background-color: #31b0d5; /* Darker blue background color on hover */
 }

@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // Adicione manipuladores de eventos para filtragem e ordenação aqui
 });
 
-function performSearch(searchTerm) {
+function performSearch(searchTerm, selectedCategory) {
     // Lógica para realizar a pesquisa e exibir resultados
     const apiUrl = "https://www.dnd5eapi.co/api/spells";
     
@@ -48,6 +48,7 @@ function performSearch(searchTerm) {
         })
         .catch(error => console.error('Erro ao chamar a API D&D 5e:', error));
 }
+
 
 function applyFilters(selectedCategory, sortOrder) {
     // Lógica para aplicar filtros e exibir resultados
