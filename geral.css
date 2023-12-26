@@ -4,7 +4,6 @@ body {
     padding: 0;
     display: grid;
     grid-template-rows: auto 1fr;
-    min-height: 100vh;
     background-color: #333;
     color: #fff;
 }
@@ -17,43 +16,67 @@ h1 {
     margin: 0;
 }
 
-form, #searchForm {
+#categoryForm,
+#searchForm {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 10px;
     margin: 20px;
     justify-items: end;
+    padding: 15px;
+    border-radius: 8px;
+    background-color: #555;
 }
 
 #searchForm {
     max-height: 50px;
     overflow: hidden;
+    background-color: #333;
 }
 
 label {
-    margin-bottom: 5px;
+    margin-bottom: 8px;
     color: #d9534f;
+    display: block;
 }
 
-input, select {
-    padding: 10px;
+input,
+select {
+    padding: 12px;
     box-sizing: border-box;
     width: 100%;
     border: 1px solid #d9534f;
-    border-radius: 5px;
+    border-radius: 8px;
+    background-color: #444;
+    color: #fff;
 }
 
 button {
     padding: 8px;
-    background-color: #333;
     color: #fff;
     border: none;
     cursor: pointer;
     border-radius: 5px;
+    justify-self: start; /* Adjusted to move buttons to the left */
 }
 
-button:hover {
+
+#searchButton {
     background-color: #555;
+}
+
+
+#categoryButton {
+    background-color: #333;
+}
+
+
+#categoryButton:hover {
+    background-color: #555;
+}
+
+#searchButton:hover {
+    background-color: #333;
 }
 
 #results {
@@ -65,14 +88,13 @@ button:hover {
 
 #results > div {
     margin-bottom: 20px;
-    background-color: #5bc0de; /* Blue background color for result items */
+    background-color: #5bc0de;
     padding: 15px;
     border-radius: 5px;
-    border: 1px solid #31708f; /* Darker blue border color */
+    border: 1px solid #31708f;
     color: #fff;
 }
 
-/* Additional styling for results */
 #results > div:hover {
-    background-color: #31b0d5; /* Darker blue background color on hover */
+    background-color: #31b0d5;
 }

@@ -20,7 +20,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Adicione manipuladores de eventos para filtragem e ordenação aqui
 });
-
+ 
 function performSearch(searchTerm, selectedCategory) {
     // Lógica para realizar a pesquisa e exibir resultados
     const apiUrl = "https://www.dnd5eapi.co/api/spells";
@@ -72,8 +72,7 @@ function applyFilters(selectedCategory, sortOrder) {
 
             if (sortedResults && sortedResults.length > 0) {
                 sortedResults.forEach(item => {
-                    const itemElement = document.createElement("div");
-                    itemElement.classList.add("card");
+                    const itemElement = document.createElement("div");            
                     itemElement.innerHTML = `<h3>${item.name}</h3>`;
                     resultsContainer.appendChild(itemElement);
                 });
