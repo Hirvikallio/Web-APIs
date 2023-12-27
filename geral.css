@@ -1,5 +1,5 @@
 body {
-    font-family: 'Arial', sans-serif;
+    font-family: 'MedievalSharp', 'Arial', sans-serif;
     margin: 0;
     padding: 0;
     display: grid;
@@ -38,6 +38,8 @@ label {
     margin-bottom: 8px;
     color: #d9534f;
     display: block;
+    font-weight: bold;
+    font-size: 20px;
 }
 
 input,
@@ -60,16 +62,13 @@ button {
     justify-self: start; /* Adjusted to move buttons to the left */
 }
 
-
 #searchButton {
     background-color: #555;
 }
 
-
 #categoryButton {
     background-color: #333;
 }
-
 
 #categoryButton:hover {
     background-color: #555;
@@ -79,22 +78,42 @@ button {
     background-color: #333;
 }
 
+#selectedCategoryTitle {
+    font-size: 30px;
+    font-weight: bold;
+    margin-top: 20px;
+    color: #d9534f; /* Match the color of other elements */
+    text-align: center; /* Center the text */
+}
+
 #results {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 20px;
     padding: 20px;
+    margin-top: 30px;
 }
 
 #results > div {
     margin-bottom: 20px;
-    background-color: #5bc0de;
+    background-color: #d9534f; /* Match the color of other elements */
     padding: 15px;
     border-radius: 5px;
-    border: 1px solid #31708f;
+    border: 1px solid #a94442; /* Darker color for border */
     color: #fff;
 }
 
 #results > div:hover {
-    background-color: #31b0d5;
+    background-color: #c9302c; /* Darker color on hover */
+}
+
+
+#selectedCategoryIcon {
+    font-size: 24px; /* Adjust the size of the icon */
+    color: #d9534f; /* Match the color of other elements */
+}
+
+/* Add additional styling for the icon, e.g., margins, borders, etc., as needed */
+#selectedCategoryIcon i {
+    margin-right: 5px;
 }

@@ -12,19 +12,36 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("categoryForm").addEventListener("submit", function (event) {
         event.preventDefault();
 
-        const selectedCategory = document.getElementById("categoryFilter").value;
+        const selectedOption = document.getElementById("categoryFilter").options[document.getElementById("categoryFilter").selectedIndex];
+        const selectedCategory = selectedOption.value;
         const sortOrder = document.getElementById("sortOrder").value;
+
+        // Display the selected category title with the first letter capitalized
+        const selectedCategoryTitle = capitalizeFirstLetter(selectedCategory);
+        document.getElementById("selectedCategoryTitle").innerText = selectedCategoryTitle;
+
+        // Display the selected category icon
+        const selectedCategoryIconContainer = document.getElementById("selectedCategoryIcon");
+        selectedCategoryIconContainer.innerHTML = ""; // Clear previous icon
+        const icon = document.createElement("i");
+        icon.classList.add("fas", selectedOption.dataset.icon);
+        selectedCategoryIconContainer.appendChild(icon);
+
         // Chame a função de aplicar filtros com selectedCategory e sortOrder
         applyFilters(selectedCategory, sortOrder);
     });
 
     // Adicione manipuladores de eventos para filtragem e ordenação aqui
 });
- 
+
+function capitalizeFirstLetter(str) {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+}
+
 function performSearch(searchTerm, selectedCategory) {
     // Lógica para realizar a pesquisa e exibir resultados
     const apiUrl = "https://www.dnd5eapi.co/api/spells";
-    
+
     fetch(apiUrl)
         .then(response => response.json())
         .then(data => {
@@ -49,7 +66,6 @@ function performSearch(searchTerm, selectedCategory) {
         .catch(error => console.error('Erro ao chamar a API D&D 5e:', error));
 }
 
-
 function applyFilters(selectedCategory, sortOrder) {
     // Lógica para aplicar filtros e exibir resultados
     const apiUrl = `https://www.dnd5eapi.co/api/${selectedCategory}`;
@@ -72,7 +88,7 @@ function applyFilters(selectedCategory, sortOrder) {
 
             if (sortedResults && sortedResults.length > 0) {
                 sortedResults.forEach(item => {
-                    const itemElement = document.createElement("div");            
+                    const itemElement = document.createElement("div");
                     itemElement.innerHTML = `<h3>${item.name}</h3>`;
                     resultsContainer.appendChild(itemElement);
                 });
