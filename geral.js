@@ -3,9 +3,18 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("searchForm").addEventListener("submit", function (event) {
         event.preventDefault();
 
+        const selectedOption = document.getElementById("categoryFilter").options[document.getElementById("categoryFilter").selectedIndex];
+        const selectedCategory = selectedOption.value;
         const searchTerm = document.getElementById("searchInput").value;
-        // Chame a função de pesquisa com searchTerm
-        performSearch(searchTerm);
+
+        // Chame a função de pesquisa com selectedCategory e searchTerm
+        if (selectedCategory === "search") {
+            // Perform a generic search across all categories
+            performSearchAcrossCategories(searchTerm);
+        } else {
+            // Perform a search specific to the selected category
+            performSearch(selectedCategory, searchTerm);
+        }
     });
 
     // Manipulação de eventos do formulário de Categorias e Ordenação
@@ -27,7 +36,7 @@ document.addEventListener("DOMContentLoaded", function () {
         icon.classList.add("fas", selectedOption.dataset.icon);
         selectedCategoryIconContainer.appendChild(icon);
 
-        // Chame a função de aplicar filtros com selectedCategory e sortOrder
+        // Chamar a função de aplicar filtros com selectedCategory e sortOrder
         applyFilters(selectedCategory, sortOrder);
     });
 
@@ -38,35 +47,67 @@ function capitalizeFirstLetter(str) {
     return str.charAt(0).toUpperCase() + str.slice(1);
 }
 
-function performSearch(searchTerm, selectedCategory) {
-    // Lógica para realizar a pesquisa e exibir resultados
-    const apiUrl = "https://www.dnd5eapi.co/api/spells";
+function performSearch(selectedCategory, searchTerm) {
+    // Construct the API URL based on the selected category
+    const apiUrl = `https://www.dnd5eapi.co/api/${selectedCategory}`;
 
     fetch(apiUrl)
         .then(response => response.json())
         .then(data => {
             // Filtra os resultados com base no termo de pesquisa
-            const filteredResults = data.results.filter(spell => spell.name.toLowerCase().includes(searchTerm.toLowerCase()));
+            const filteredResults = data.results.filter(item => item.name.toLowerCase().includes(searchTerm.toLowerCase()));
 
             // Atualize a seção de resultados com os dados filtrados da API
             const resultsContainer = document.getElementById("results");
             resultsContainer.innerHTML = "";
 
             if (filteredResults.length > 0) {
-                filteredResults.forEach(spell => {
-                    const spellElement = document.createElement("div");
-                    spellElement.innerHTML = `<h3>${spell.name}</h3>`;
-                    resultsContainer.appendChild(spellElement);
+                filteredResults.forEach(item => {
+                    const itemElement = document.createElement("div");
+                    itemElement.innerHTML = `<h3>${item.name}</h3>`;
+                    resultsContainer.appendChild(itemElement);
                 });
             } else {
-                resultsContainer.innerHTML = "<p>Nenhum resultado encontrado.</p>";
+                resultsContainer.innerHTML = `<p>Nenhum resultado encontrado para a categoria ${selectedCategory}.</p>`;
             }
         })
-        .catch(error => console.error('Erro ao chamar a API D&D 5e:', error));
+        .catch(error => console.error(`Erro ao chamar a API D&D 5e para a categoria ${selectedCategory}:`, error));
+}
+
+function performSearchAcrossCategories(searchTerm) {
+    // Array of category names to perform the search across
+    const categories = [
+        "classes", "subclasses", "features", "races", "subraces",
+        "spells", "monsters", "conditions", "languages", "skills", "traits"
+    ];
+
+    // Perform search for each category
+    categories.forEach(category => {
+        fetch(`https://www.dnd5eapi.co/api/${category}`)
+            .then(response => response.json())
+            .then(data => {
+                // Filtra os resultados com base no termo de pesquisa
+                const filteredResults = data.results.filter(item => item.name.toLowerCase().includes(searchTerm.toLowerCase()));
+
+                // Atualize a seção de resultados com os dados filtrados da API
+                const resultsContainer = document.getElementById("results");
+                resultsContainer.innerHTML = "";
+
+                if (filteredResults.length > 0) {
+                    filteredResults.forEach(item => {
+                        const itemElement = document.createElement("div");
+                        itemElement.innerHTML = `<h3>${item.name}</h3>`;
+                        resultsContainer.appendChild(itemElement);
+                    });
+                } else {
+                    resultsContainer.innerHTML += `<p>Nenhum resultado encontrado para a categoria ${category}.</p>`;
+                }
+            })
+            .catch(error => console.error(`Erro ao chamar a API D&D 5e para a categoria ${category}:`, error));
+    });
 }
 
 function applyFilters(selectedCategory, sortOrder) {
-    // Lógica para aplicar filtros e exibir resultados
     const apiUrl = `https://www.dnd5eapi.co/api/${selectedCategory}`;
 
     fetch(apiUrl)
@@ -81,7 +122,7 @@ function applyFilters(selectedCategory, sortOrder) {
                 sortedResults = data.results.sort((a, b) => b.name.localeCompare(a.name));
             }
 
-            // Atualize a seção de resultados com os dados ordenados da API
+          
             const resultsContainer = document.getElementById("results");
             resultsContainer.innerHTML = "";
 
