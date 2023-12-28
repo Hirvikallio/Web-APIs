@@ -55,7 +55,6 @@ function performSearch(searchTerm, selectedCategory) {
             if (filteredResults.length > 0) {
                 filteredResults.forEach(spell => {
                     const spellElement = document.createElement("div");
-                    spellElement.classList.add("card");
                     spellElement.innerHTML = `<h3>${spell.name}</h3>`;
                     resultsContainer.appendChild(spellElement);
                 });
