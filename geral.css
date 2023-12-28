@@ -29,7 +29,6 @@ h1 {
 }
 
 #searchForm {
-    max-height: 50px;
     overflow: hidden;
     background-color: #333;
 }
@@ -59,7 +58,8 @@ button {
     border: none;
     cursor: pointer;
     border-radius: 5px;
-    justify-self: start; /* Adjusted to move buttons to the left */
+    justify-self: start;
+    /* Adjusted to move buttons to the left */
 }
 
 #searchButton {
@@ -86,37 +86,102 @@ button {
     margin-top: 30px;
 }
 
-#results > div {
+#results>div {
     margin-bottom: 20px;
-    background-color: #d9534f; /* Match the color of other elements */
+    background-color: #d9534f;
+    /* Match the color of other elements */
     padding: 15px;
     border-radius: 5px;
-    border: 1px solid #a94442; /* Darker color for border */
+    border: 1px solid #a94442;
+    /* Darker color for border */
     color: #fff;
 }
 
-#results > div:hover {
-    background-color: #c9302c; /* Darker color on hover */
+#results>div:hover {
+    background-color: #c9302c;
+    /* Darker color on hover */
 }
 
 
 #selectedCategoryContainer {
     display: grid;
-    grid-template-columns: auto auto; /* Two columns: one for title, one for icon */
-    gap: 20px; /* Adjust the gap between title and icon */
-    align-items: center; /* Center vertically */
-    justify-content: center; /* Center horizontally */
-    text-align: center; /* Center the text within each column */
+    grid-template-columns: auto auto;
+    /* Two columns: one for title, one for icon */
+    gap: 20px;
+    /* Adjust the gap between title and icon */
+    align-items: center;
+    /* Center vertically */
+    justify-content: center;
+    /* Center horizontally */
+    text-align: center;
+    /* Center the text within each column */
     margin-top: 20px;
 }
 
 #selectedCategoryTitle {
     font-size: 30px;
     font-weight: bold;
-    color: #d9534f; /* Match the color of other elements */
+    color: #d9534f;
+    /* Match the color of other elements */
 }
 
 #selectedCategoryIcon {
-    font-size: 24px; /* Adjust the size of the icon */
-    color: #d9534f; /* Match the color of other elements */
+    font-size: 24px;
+    /* Adjust the size of the icon */
+    color: #d9534f;
+    /* Match the color of other elements */
+}
+
+
+/* Media Queries for PC */
+@media only screen and (min-width: 1200px) {
+
+    #categoryForm,
+    #searchForm {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        /* Reset back to the original layout for PC */
+    }
+}
+
+ 
+/* Media Queries for Tablet */
+@media only screen and (max-width: 768px) {
+    #categoryForm,
+    #searchForm {
+        grid-template-columns: 1fr; /* Change to a single column for better stacking on tablets */
+        align-items: center; /* Center forms vertically */
+        text-align: center; /* Center labels horizontally */
+    }
+
+    #orderForm {
+        order: 2; /* Change order to 2 for the order form to be below the category form */
+        margin-top: 20px; /* Add margin between the forms */
+    }
+    
+    #searchForm>label,
+    label[for="sortOrder"],
+    label[for="categoryFilter"] {
+        margin-right: 0; /* Reset margin for labels on tablet */
+    }
+}
+
+/* Media Queries for Phones */
+@media only screen and (max-width: 480px) {
+    #categoryForm,
+    #searchForm {
+        grid-template-columns: 1fr; /* Change to a single column for better stacking on phones */
+        align-items: flex-start; /* Align forms and labels to the left on phones */
+        text-align: left; /* Align labels to the left */
+    }
+
+    #orderForm {
+        order: 2; /* Change order to 2 for the order form to be below the category form */
+        margin-top: 20px; /* Add margin between the forms */
+    }
+
+    #searchForm>label,
+    label[for="sortOrder"],
+    label[for="categoryFilter"] {
+        margin-right: 0; /* Reset margin for labels on phone */
+    }
 }
