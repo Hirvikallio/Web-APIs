@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", function () {
             // Pesquisa específica para a categoria selecionada
             performSearch(selectedCategory, searchTerm);
         }
-    });
+    });   
 
     // Manipulação de eventos do formulário de Categorias e Ordenação
     document.getElementById("categoryForm").addEventListener("submit", function (event) {
