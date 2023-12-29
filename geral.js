@@ -41,11 +41,55 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     // Adicione manipuladores de eventos para filtragem e ordenação aqui
+
+    document.getElementById("results").addEventListener("click", function (event) {
+        const clickedItem = event.target.closest("div");
+        if (clickedItem) {
+            const itemName = clickedItem.textContent.trim();
+            const selectedCategory = document.getElementById("categoryFilter").value;
+            fetchItemDetails(selectedCategory, itemName);
+        }
+    });
 });
 
 function capitalizeFirstLetter(str) {
     return str.charAt(0).toUpperCase() + str.slice(1);
 }
+
+
+function fetchItemDetails(category, itemName) {
+    const apiUrl = `https://www.dnd5eapi.co/api/${category}/${itemName.replace(/\s+/g, '-').toLowerCase()}`;
+
+    fetch(apiUrl)
+        .then(response => response.json())
+        .then(itemDetails => {
+            // Display the details in your UI
+            const detailsContainer = document.getElementById("results");
+            detailsContainer.innerHTML = `<h2>${itemDetails.name}</h2>`;
+
+            // Add additional details based on the item type
+            if (category === "spells") {
+                // Example: Display spell details
+                detailsContainer.innerHTML += `<p>Casting Time: ${itemDetails.casting_time}</p>`;
+                detailsContainer.innerHTML += `<p>Range: ${itemDetails.range}</p>`;
+                detailsContainer.innerHTML += `<p>Components: ${itemDetails.components.join(", ")}</p>`;
+                detailsContainer.innerHTML += `<p>Description: ${itemDetails.desc}</p>`;
+            } else if (category === "monsters") {
+                // Example: Display monster details
+                detailsContainer.innerHTML += `<p>Hit Points: ${itemDetails.hit_points}</p>`;
+                detailsContainer.innerHTML += `<p>Armor Class: ${itemDetails.armor_class}</p>`;
+                // Add more details as needed
+            } else if (category === "traits") {
+                // Example: Display trait details
+                detailsContainer.innerHTML += `<p>Type: ${itemDetails.type}</p>`;
+                detailsContainer.innerHTML += `<p>Description: ${itemDetails.desc}</p>`;
+                // Add more details as needed
+            } 
+            // Add more conditions for other categories
+        })
+        .catch(error => console.error(`Erro ao obter detalhes do item ${itemName} na categoria ${category}:`, error));
+}
+
 
 function performSearch(selectedCategory, searchTerm) {
     // Construct the API URL based on the selected category
@@ -106,6 +150,7 @@ function performSearchAcrossCategories(searchTerm) {
             .catch(error => console.error(`Erro ao chamar a API D&D 5e para a categoria ${category}:`, error));
     });
 }
+
 
 function applyFilters(selectedCategory, sortOrder) {
     const apiUrl = `https://www.dnd5eapi.co/api/${selectedCategory}`;

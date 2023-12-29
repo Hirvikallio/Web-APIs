@@ -59,7 +59,7 @@ button {
     cursor: pointer;
     border-radius: 5px;
     justify-self: start;
-
+  
 }
 
 #searchButton {
@@ -97,7 +97,7 @@ button {
 
 #results>div:hover {
     background-color: #c9302c;
-
+ 
 }
 
 
@@ -115,15 +115,14 @@ button {
     font-size: 30px;
     font-weight: bold;
     color: #d9534f;
-
+   
 }
 
 #selectedCategoryIcon {
     font-size: 24px;
     color: #d9534f;
-
+    
 }
-
 
 /* Media Queries PC */
 @media only screen and (min-width: 1200px) {
@@ -131,41 +130,40 @@ button {
     #categoryForm,
     #searchForm {
         grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-
+      
     }
 }
 
-
+ 
 /* Media Queries Tablet */
 @media only screen and (max-width: 768px) {
-
     #categoryForm,
     #searchForm {
-        grid-template-columns: 1fr;
-        align-items: center;
-        text-align: center;
+        grid-template-columns: 1fr; 
+        align-items: center; 
+        text-align: center; 
     }
+
 
     #searchForm>label,
     label[for="sortOrder"],
     label[for="categoryFilter"] {
-        margin-right: 0;
+        margin-right: 0; 
     }
 }
 
 /* Media Queries Mobile */
 @media only screen and (max-width: 480px) {
-
     #categoryForm,
     #searchForm {
-        grid-template-columns: 1fr;
-        align-items: flex-start;
-        text-align: left;
+        grid-template-columns: 1fr; 
+        align-items: flex-start; 
+        text-align: left; 
     }
 
     #searchForm>label,
     label[for="sortOrder"],
     label[for="categoryFilter"] {
-        margin-right: 0;
+        margin-right: 0; 
     }
 }
