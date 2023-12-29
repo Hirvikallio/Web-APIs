@@ -7,12 +7,12 @@ document.addEventListener("DOMContentLoaded", function () {
         const selectedCategory = selectedOption.value;
         const searchTerm = document.getElementById("searchInput").value;
 
-        // Chame a função de pesquisa com selectedCategory e searchTerm
+        // Chamar a função de pesquisa com selectedCategory e searchTerm
         if (selectedCategory === "search") {
-            // Perform a generic search across all categories
+            // Pesquisa em todas as categorias
             performSearchAcrossCategories(searchTerm);
         } else {
-            // Perform a search specific to the selected category
+            // Pesquisa específica para a categoria selecionada
             performSearch(selectedCategory, searchTerm);
         }
     });
@@ -25,22 +25,20 @@ document.addEventListener("DOMContentLoaded", function () {
         const selectedCategory = selectedOption.value;
         const sortOrder = document.getElementById("sortOrder").value;
 
-        // Display the selected category title with the first letter capitalized
+        // Titulo da categoria selecionada
         const selectedCategoryTitle = capitalizeFirstLetter(selectedCategory);
         document.getElementById("selectedCategoryTitle").innerText = selectedCategoryTitle;
 
-        // Display the selected category icon
+        // Icon da categoria selecionada
         const selectedCategoryIconContainer = document.getElementById("selectedCategoryIcon");
-        selectedCategoryIconContainer.innerHTML = ""; // Clear previous icon
+        selectedCategoryIconContainer.innerHTML = "";
         const icon = document.createElement("i");
         icon.classList.add("fas", selectedOption.dataset.icon);
         selectedCategoryIconContainer.appendChild(icon);
 
-        // Chamar a função de aplicar filtros com selectedCategory e sortOrder
         applyFilters(selectedCategory, sortOrder);
     });
 
-    // Adicione manipuladores de eventos para filtragem e ordenação aqui
 
     document.getElementById("results").addEventListener("click", function (event) {
         const clickedItem = event.target.closest("div");
@@ -63,36 +61,34 @@ function fetchItemDetails(category, itemName) {
     fetch(apiUrl)
         .then(response => response.json())
         .then(itemDetails => {
-            // Display the details in your UI
+
             const detailsContainer = document.getElementById("results");
             detailsContainer.innerHTML = `<h2>${itemDetails.name}</h2>`;
 
-            // Add additional details based on the item type
             if (category === "spells") {
-                // Example: Display spell details
+                // Spell details
                 detailsContainer.innerHTML += `<p>Casting Time: ${itemDetails.casting_time}</p>`;
                 detailsContainer.innerHTML += `<p>Range: ${itemDetails.range}</p>`;
                 detailsContainer.innerHTML += `<p>Components: ${itemDetails.components.join(", ")}</p>`;
                 detailsContainer.innerHTML += `<p>Description: ${itemDetails.desc}</p>`;
             } else if (category === "monsters") {
-                // Example: Display monster details
+                // Monster details
                 detailsContainer.innerHTML += `<p>Hit Points: ${itemDetails.hit_points}</p>`;
                 detailsContainer.innerHTML += `<p>Armor Class: ${itemDetails.armor_class}</p>`;
-                // Add more details as needed
             } else if (category === "traits") {
-                // Example: Display trait details
+                // Trait details
                 detailsContainer.innerHTML += `<p>Type: ${itemDetails.type}</p>`;
                 detailsContainer.innerHTML += `<p>Description: ${itemDetails.desc}</p>`;
-                // Add more details as needed
-            } 
-            // Add more conditions for other categories
+
+            }
+
         })
         .catch(error => console.error(`Erro ao obter detalhes do item ${itemName} na categoria ${category}:`, error));
 }
 
 
 function performSearch(selectedCategory, searchTerm) {
-    // Construct the API URL based on the selected category
+
     const apiUrl = `https://www.dnd5eapi.co/api/${selectedCategory}`;
 
     fetch(apiUrl)
@@ -101,7 +97,7 @@ function performSearch(selectedCategory, searchTerm) {
             // Filtra os resultados com base no termo de pesquisa
             const filteredResults = data.results.filter(item => item.name.toLowerCase().includes(searchTerm.toLowerCase()));
 
-            // Atualize a seção de resultados com os dados filtrados da API
+            // Atualiza a seção de resultados com os dados filtrados da API
             const resultsContainer = document.getElementById("results");
             resultsContainer.innerHTML = "";
 
@@ -119,13 +115,13 @@ function performSearch(selectedCategory, searchTerm) {
 }
 
 function performSearchAcrossCategories(searchTerm) {
-    // Array of category names to perform the search across
+    // Array de nomes das categorias para realizar a pesquisa
     const categories = [
         "classes", "subclasses", "features", "races", "subraces",
         "spells", "monsters", "conditions", "languages", "skills", "traits"
     ];
 
-    // Perform search for each category
+    // Pesquisa parqa cada categoria
     categories.forEach(category => {
         fetch(`https://www.dnd5eapi.co/api/${category}`)
             .then(response => response.json())
@@ -133,7 +129,7 @@ function performSearchAcrossCategories(searchTerm) {
                 // Filtra os resultados com base no termo de pesquisa
                 const filteredResults = data.results.filter(item => item.name.toLowerCase().includes(searchTerm.toLowerCase()));
 
-                // Atualize a seção de resultados com os dados filtrados da API
+                // Atualiza a seção de resultados com os dados filtrados da API
                 const resultsContainer = document.getElementById("results");
                 resultsContainer.innerHTML = "";
 
@@ -167,7 +163,7 @@ function applyFilters(selectedCategory, sortOrder) {
                 sortedResults = data.results.sort((a, b) => b.name.localeCompare(a.name));
             }
 
-          
+
             const resultsContainer = document.getElementById("results");
             resultsContainer.innerHTML = "";
 
